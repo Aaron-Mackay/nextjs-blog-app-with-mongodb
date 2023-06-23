@@ -18,6 +18,33 @@ export default function AddPost() {
 
         // fields check
         if (!title || !content) return setError('All fields are required');
+
+        // post structure
+        let post = {
+            title,
+            content,
+            published: false,
+            createdAt: new Date().toISOString(),
+        };
+        // save the post
+        let response = await fetch('/api/posts', {
+            method: 'POST',
+            body: JSON.stringify(post),
+        });
+
+        // get the data
+        let data = await response.json();
+
+        if (data.success) {
+            // reset the fields
+            setTitle('');
+            setContent('');
+            // set the message
+            return setMessage(data.message);
+        } else {
+            // set the error
+            return setError(data.message);
+        }
     };
 
     return (
