@@ -3,8 +3,9 @@ import Head from 'next/head';
 import Nav from '../components/Nav';
 import PostCard from '../components/PostCard';
 import styles from '../styles/Home.module.css';
+import { Key } from 'react';
 
-export default function Home({ posts }) {
+export default function Home({ posts }: { posts: any }) {
     return (
         <div>
             <Head>
@@ -19,7 +20,7 @@ export default function Home({ posts }) {
                         <h2>No added posts</h2>
                     ) : (
                         <ul>
-                            {posts.map((post, i) => (
+                            {posts.map((post: any, i: Key | null | undefined) => (
                                 <PostCard post={post} key={i} />
                             ))}
                         </ul>
@@ -30,15 +31,15 @@ export default function Home({ posts }) {
     );
 }
 
-export async function getServerSideProps(ctx) {
+export async function getServerSideProps(ctx: any) {
     // get the current environment
-    let dev = process.env.NODE_ENV !== 'production';
-    let { DEV_URL, PROD_URL } = process.env;
+    const dev = process.env.NODE_ENV !== 'production';
+    const { DEV_URL, PROD_URL } = process.env;
 
     // request posts from api
-    let response = await fetch(`${dev ? DEV_URL : PROD_URL}/api/posts`);
+    const response = await fetch(`${dev ? DEV_URL : PROD_URL}/api/posts`);
     // extract the data
-    let data = await response.json();
+    const data = await response.json();
 
     return {
         props: {
