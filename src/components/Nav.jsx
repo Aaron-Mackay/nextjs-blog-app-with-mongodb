@@ -2,6 +2,13 @@ import Link from 'next/link';
 
 import styles from '../styles/Nav.module.css';
 
+const dbDebug = async () => {
+            const res = await fetch('/api/dbDebug');
+
+            const data = await res.json();
+            console.log(data)
+    };
+
 export default function Nav() {
     return (
         <nav className={styles.nav}>
@@ -12,11 +19,12 @@ export default function Nav() {
                     </Link>
                 </li>
                 <li>
-                    <Link href="/add-post">
-                        Add post
+                    <Link href="/map">
+                        Map
                     </Link>
                 </li>
             </ul>
+            <button onClick={()=> dbDebug()}>DB debug</button>
         </nav>
     );
 }

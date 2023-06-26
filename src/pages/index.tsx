@@ -1,11 +1,11 @@
 import Head from 'next/head';
 
 import Nav from '../components/Nav';
-import PostCard from '../components/PostCard';
+import StateCard from '../components/StateCard';
 import styles from '../styles/Home.module.css';
 import { Key } from 'react';
 
-export default function Home({ posts }: { posts: any }) {
+export default function Home({ states }: { states: any }) {
     return (
         <div>
             <Head>
@@ -16,12 +16,12 @@ export default function Home({ posts }: { posts: any }) {
 
             <main>
                 <div className={styles.container}>
-                    {posts.length === 0 ? (
-                        <h2>No added posts</h2>
+                    {states.length === 0 ? (
+                        <h2>No added states</h2>
                     ) : (
                         <ul>
-                            {posts.map((post: any, i: Key | null | undefined) => (
-                                <PostCard post={post} key={i} />
+                            {states.map((state: any, i: Key | null | undefined) => (
+                                <StateCard state={state} key={i} />
                             ))}
                         </ul>
                     )}
@@ -36,14 +36,14 @@ export async function getServerSideProps(ctx: any) {
     const dev = process.env.NODE_ENV !== 'production';
     const { DEV_URL, PROD_URL } = process.env;
 
-    // request posts from api
-    const response = await fetch(`${dev ? DEV_URL : PROD_URL}/api/posts`);
+    // request states from api
+    const response = await fetch(`${dev ? DEV_URL : PROD_URL}/api/states`);
     // extract the data
     const data = await response.json();
 
     return {
         props: {
-            posts: data['message'],
+            states: data['message'],
         },
     };
 }

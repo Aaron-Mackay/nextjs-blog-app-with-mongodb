@@ -1,21 +1,21 @@
 import { useState } from 'react';
 import { useRouter } from 'next/router';
 
-export default function PostCard({ post }) {
+export default function StateCard({ state }) {
     const [publishing, setPublishing] = useState(false);
     const [deleting, setDeleting] = useState(false);
     const router = useRouter();
 
-    // Publish post
-    const publishPost = async (postId) => {
+    // Publish state
+    const publishState = async (stateId) => {
         // change publishing state
         setPublishing(true);
 
         try {
-            // Update post
-            await fetch('/api/posts', {
+            // Update state
+            await fetch('/api/states', {
                 method: 'PUT',
-                body: postId,
+                body: stateId,
             });
 
             // reset the publishing state
@@ -28,16 +28,16 @@ export default function PostCard({ post }) {
             return setPublishing(false);
         }
     };
-    // Delete post
-    const deletePost = async (postId) => {
+    // Delete state
+    const deleteState = async (stateId) => {
         //change deleting state
         setDeleting(true);
 
         try {
-            console.log(postId)
-            // Delete post
-            await fetch('/api/posts?' + new URLSearchParams({
-                postId
+            console.log(stateId)
+            // Delete state
+            await fetch('/api/states?' + new URLSearchParams({
+                stateId
             }), {
                 method: 'DELETE'
             });
@@ -56,20 +56,15 @@ export default function PostCard({ post }) {
 
     return (
         <>
-            <li>
-                <h3>{post.title}</h3>
-                <p>{post.content}</p>
-                <small>{new Date(post.createdAt).toLocaleDateString('en-GB')}</small>
-                <br />
-                {!post.published ? (
-                    <button type="button" onClick={() => publishPost(post._id)}>
+                <h3 style={{textTransform: 'capitalize'}}>{state.state.replace("-", " ")}</h3>
+                {!state.published ? (
+                    <button type="button" onClick={() => publishState(state._id)}>
                         {publishing ? 'Publishing' : 'Publish'}
                     </button>
                 ) : null}
-                <button type="button" onClick={() => deletePost(post['_id'])}>
+                <button type="button" onClick={() => deleteState(state['_id'])}>
                     {deleting ? 'Deleting' : 'Delete'}
                 </button>
-            </li>
         </>
     );
 }

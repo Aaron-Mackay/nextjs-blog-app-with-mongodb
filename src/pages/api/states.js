@@ -6,36 +6,36 @@ export default async function handler(req, res) {
     // switch the methods
     switch (req.method) {
         case 'GET': {
-            return getPosts(req, res);
+            return getStates(req, res);
         }
 
         case 'POST': {
-            return addPost(req, res);
+            return addState(req, res);
         }
 
         case 'PUT': {
-            return updatePost(req, res);
+            return updateState(req, res);
         }
 
         case 'DELETE': {
-            return deletePost(req, res);
+            return deleteState(req, res);
         }
     }
 }
 
-async function getPosts(req,res){
+async function getStates(req,res){
     try {
         // connect to the database
         let { db } = await connectToDatabase();
-        // fetch the posts
-        let posts = await db
-            .collection('posts')
+        // fetch the states
+        let states = await db
+            .collection('states')
             .find({})
             .sort({ published: -1 })
             .toArray();
-        // return the posts
+        // return the states
         return res.json({
-            message: JSON.parse(JSON.stringify(posts)),
+            message: JSON.parse(JSON.stringify(states)),
             success: true,
         });
     } catch (error) {
@@ -47,15 +47,15 @@ async function getPosts(req,res){
     }
 }
 
-async function addPost(req, res) {
+async function addState(req, res) {
     try {
         // connect to the database
         let { db } = await connectToDatabase();
-        // add the post
-        await db.collection('posts').insertOne(JSON.parse(req.body));
+        // add the state
+        await db.collection('states').insertOne(JSON.parse(req.body));
         // return a message
         return res.json({
-            message: 'Post added successfully',
+            message: 'State added successfully',
             success: true,
         });
     } catch (error) {
@@ -67,13 +67,13 @@ async function addPost(req, res) {
     }
 }
 
-async function updatePost(req, res) {
+async function updateState(req, res) {
     try {
         // connect to the database
         let { db } = await connectToDatabase();
 
-        // update the published status of the post
-        await db.collection('posts').updateOne(
+        // update the published status of the state
+        await db.collection('states').updateOne(
             {
                 _id: new ObjectId(req.body),
             },
@@ -82,7 +82,7 @@ async function updatePost(req, res) {
 
         // return a message
         return res.json({
-            message: 'Post updated successfully',
+            message: 'State updated successfully',
             success: true,
         });
     } catch (error) {
@@ -95,18 +95,18 @@ async function updatePost(req, res) {
     }
 }
 
-async function deletePost(req, res) {
+async function deleteState(req, res) {
     try {
         // Connecting to the database
         let { db } = await connectToDatabase();
-        // Deleting the post
-        await db.collection('posts').deleteOne({
-            _id: new ObjectId(req.query.postId),
+        // Deleting the state
+        await db.collection('states').deleteOne({
+            _id: new ObjectId(req.query.stateId),
         });
 
         // returning a message
         return res.json({
-            message: 'Post deleted successfully',
+            message: 'State deleted successfully',
             success: true,
         });
     } catch (error) {
