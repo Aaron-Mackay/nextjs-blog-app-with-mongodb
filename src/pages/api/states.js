@@ -2,7 +2,6 @@ const { connectToDatabase } = require('../../lib/mongodb');
 const ObjectId = require('mongodb').ObjectId;
 
 export default async function handler(req, res) {
-    console.log(req.body)
     // switch the methods
     switch (req.method) {
         case 'GET': {
@@ -11,14 +10,6 @@ export default async function handler(req, res) {
 
         case 'POST': {
             return addState(req, res);
-        }
-
-        case 'PUT': {
-            return updateState(req, res);
-        }
-
-        case 'DELETE': {
-            return deleteState(req, res);
         }
     }
 }
@@ -39,6 +30,7 @@ async function getStates(req,res){
             success: true,
         });
     } catch (error) {
+        console.log("Error: ", error)
         // return the error
         return res.json({
             message: new Error(error).message,
@@ -59,59 +51,8 @@ async function addState(req, res) {
             success: true,
         });
     } catch (error) {
+        console.log("Error: ", error)
         // return an error
-        return res.json({
-            message: new Error(error).message,
-            success: false,
-        });
-    }
-}
-
-async function updateState(req, res) {
-    try {
-        // connect to the database
-        let { db } = await connectToDatabase();
-
-        // update the published status of the state
-        await db.collection('states').updateOne(
-            {
-                _id: new ObjectId(req.body),
-            },
-            { $set: { published: true } }
-        );
-
-        // return a message
-        return res.json({
-            message: 'State updated successfully',
-            success: true,
-        });
-    } catch (error) {
-
-        // return an error
-        return res.json({
-            message: new Error(error).message,
-            success: false,
-        });
-    }
-}
-
-async function deleteState(req, res) {
-    try {
-        // Connecting to the database
-        let { db } = await connectToDatabase();
-        // Deleting the state
-        await db.collection('states').deleteOne({
-            _id: new ObjectId(req.query.stateId),
-        });
-
-        // returning a message
-        return res.json({
-            message: 'State deleted successfully',
-            success: true,
-        });
-    } catch (error) {
-        console.log(error)
-        // returning an error
         return res.json({
             message: new Error(error).message,
             success: false,

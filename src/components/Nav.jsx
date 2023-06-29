@@ -1,21 +1,23 @@
 import Link from 'next/link';
 
+
 import styles from '../styles/Nav.module.css';
 
 const dbDebug = async () => {
-            const res = await fetch('/api/dbDebug');
+    const res = await fetch('/api/dbDebug');
 
-            const data = await res.json();
-            console.log(data)
-    };
+    const data = await res.json();
+    console.log(data)
+};
 
-export default function Nav() {
+export default function Nav({user}) {
+
     return (
         <nav className={styles.nav}>
             <ul className={styles.list}>
                 <li className={styles.item}>
                     <Link href="/">
-                        Home
+                        Your votes
                     </Link>
                 </li>
                 <li>
@@ -24,7 +26,26 @@ export default function Nav() {
                     </Link>
                 </li>
             </ul>
-            <button onClick={()=> dbDebug()}>DB debug</button>
+            <div>
+                {user ? logoutEl(user) : loginEl()}
+            </div>
+            <button onClick={() => dbDebug()}>DB debug</button>
         </nav>
     );
+}
+
+const logoutEl = (user) => {
+    return (
+        <>
+            Welcome {user.name}! <a href="/api/auth/logout">Logout</a>
+        </>
+    )
+}
+
+const loginEl = () => {
+    return (
+        <>
+            <a href="/api/auth/login">Login</a>;
+        </>
+    )
 }
