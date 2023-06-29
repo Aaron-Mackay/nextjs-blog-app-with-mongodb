@@ -1,6 +1,7 @@
 import Head from 'next/head';
 
 import Nav from '../components/Nav';
+import Map from '../components/Map'
 import StateCard from '../components/StateCard';
 import styles from '../styles/Home.module.css';
 import { Key } from 'react';
@@ -21,6 +22,7 @@ export default function Home({ states }: { states: any }) {
             <Nav user={user}/>
 
             <main>
+                <Map states={states}/>
                 <div className={styles.container}>
                     {states.length === 0 ? (
                         <h2>No added states</h2>

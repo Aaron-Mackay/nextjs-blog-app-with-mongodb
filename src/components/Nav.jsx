@@ -14,18 +14,6 @@ export default function Nav({user}) {
 
     return (
         <nav className={styles.nav}>
-            <ul className={styles.list}>
-                <li className={styles.item}>
-                    <Link href="/">
-                        Your votes
-                    </Link>
-                </li>
-                <li>
-                    <Link href="/map">
-                        Map
-                    </Link>
-                </li>
-            </ul>
             <div>
                 {user ? logoutEl(user) : loginEl()}
             </div>
