@@ -20,19 +20,23 @@ export default function Home({ states }: { states: any }) {
             </Head>
 
             <Nav user={user}/>
-
             <main>
-                <Map states={states}/>
-                <div className={styles.container}>
-                    {states.length === 0 ? (
-                        <h2>No added states</h2>
-                    ) : (
-                        <ul>
-                            {states.map((state: any, i: Key | null | undefined) => (
-                                <StateCard state={state} key={i} user={user}/>
-                            ))}
-                        </ul>
-                    )}
+                <div className={styles.gridcontainer}>
+                    <div className={styles.map}>
+                        <Map states={states}/>
+                    </div>
+                    <div className={styles.stateslistcontainer + " " + styles.stateslist}>
+                        {states.length === 0 ? (
+                            <h2>No added states</h2>
+                        ) : (
+                            <ul>
+                                {
+                                    states.map((state: any, i: Key | null | undefined) => (
+                                    <StateCard state={state} key={state.state} user={user}/>
+                                ))}
+                            </ul>
+                        )}
+                    </div>
                 </div>
             </main>
         </div>

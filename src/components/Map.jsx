@@ -11,9 +11,12 @@ export default function Map({states}) {
         }
     }, []);
 
-    states.filter(state => state.selection).forEach((state) => {
-        document?.querySelector('#' + state.state)?.classList.add(state.selection + "-vote")
-    })
+    useEffect(() => {
+        states.filter(state => state.selection).forEach((state) => {
+            document?.querySelector('#' + state.state)?.setAttribute("class", "state " + state.selection + "-vote")
+        })
+    }, [states])
+
 
     return (
         <MapSvg/>

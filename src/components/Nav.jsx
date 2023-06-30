@@ -11,7 +11,6 @@ const dbDebug = async () => {
 };
 
 export default function Nav({user}) {
-
     return (
         <nav className={styles.nav}>
             <div>
