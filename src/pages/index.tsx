@@ -6,7 +6,7 @@ import StateCard from '../components/StateCard';
 import styles from '../styles/Home.module.css';
 import { Key } from 'react';
 import {useUser} from "@auth0/nextjs-auth0/client";
-import {getSession, withPageAuthRequired} from "@auth0/nextjs-auth0";
+import {getSession, Session, withPageAuthRequired} from "@auth0/nextjs-auth0";
 
 export default function Home({ states }: { states: any }) {
     const {user, error, isLoading} = useUser(); //move to serverside
