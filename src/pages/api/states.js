@@ -24,7 +24,6 @@ async function getStates(req,res){
             .find({})
             .sort({ published: -1 })
             .toArray();
-        console.log("States count: ", states.length)
         // return the states
         return res.json({
             message: JSON.parse(JSON.stringify(states)),

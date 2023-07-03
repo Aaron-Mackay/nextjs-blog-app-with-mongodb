@@ -16,15 +16,15 @@ export default async function handler(req, res) {
 async function getUserVotes(req, res) {
     try {
         // connect to the database
-        let { db } = await connectToDatabase();
+        let {db} = await connectToDatabase();
         // fetch the states
-        const userEmail = querystring.parse(req.url.replace('/api/vote?','')).user
+        const userEmail = querystring.parse(req.url.replace('/api/vote?', '')).user
         let userVotes = await db
             .collection('votes')
-            .find({
+            .find(userEmail ? {
                 userEmail
-            })
-            .sort({ published: -1 })
+            } : {})
+            .sort({published: -1})
             .toArray();
         // return the states
         return res.json({
