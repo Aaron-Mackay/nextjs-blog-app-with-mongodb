@@ -49,7 +49,7 @@ export const getServerSideProps = withPageAuthRequired({
 
         // get the current environment
         const dev = process.env.NODE_ENV !== 'production';
-        const statesArr = await getStatesAndVoteData(dev, userData);
+        const statesArr = userData ? await getStatesAndVoteData(dev, userData) : [];
 
         return {props: {
                 states: statesArr,
@@ -58,7 +58,7 @@ export const getServerSideProps = withPageAuthRequired({
 });
 
 
-async function getStatesAndVoteData(dev: boolean, userData: Session | null | undefined) {
+async function getStatesAndVoteData(dev: boolean, userData: Session) {
     const {DEV_URL, PROD_URL} = process.env;
 
     // request states from api
