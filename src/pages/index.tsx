@@ -27,7 +27,10 @@ export default function Home({ states }: { states: any }) {
                     </div>
                     <div className={styles.stateslistcontainer + " " + styles.stateslist}>
                         {states.length === 0 ? (
-                            <h2>No added states</h2>
+                            <>
+                                <h2>States not loaded</h2>
+                                <p></p>
+                            </>
                         ) : (
                             <>
                                 {
@@ -49,7 +52,14 @@ export const getServerSideProps = withPageAuthRequired({
 
         // get the current environment
         const dev = process.env.NODE_ENV !== 'production';
-        const statesArr = userData ? await getStatesAndVoteData(dev, userData) : [];
+        let statesArr;
+        if (userData)
+        {
+            statesArr = await getStatesAndVoteData(dev, userData);
+        } else {
+            statesArr = []
+            console.log("UserData empty")
+        }
 
         return {props: {
                 states: statesArr,
