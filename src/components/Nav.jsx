@@ -1,14 +1,4 @@
-import Link from 'next/link';
-
-
 import styles from '../styles/Nav.module.css';
-
-const dbDebug = async () => {
-    const res = await fetch('/api/dbDebug');
-
-    const data = await res.json();
-    console.log(data)
-};
 
 export default function Nav({user}) {
     return (
@@ -16,7 +6,6 @@ export default function Nav({user}) {
             <div>
                 {user ? logoutEl(user) : loginEl()}
             </div>
-            <button onClick={() => dbDebug()}>DB debug</button>
         </nav>
     );
 }
