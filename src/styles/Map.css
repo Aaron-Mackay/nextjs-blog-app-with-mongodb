@@ -5,10 +5,10 @@
     max-height: 90vh;
 }
 .rep-vote {
-    fill: red;
+    fill: #d91f2e;
 }
 .dem-vote {
-    fill: blue;
+    fill: #0044c9;
 }
 .state:hover {
     stroke: #002868 !important;

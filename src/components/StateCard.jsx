@@ -1,5 +1,6 @@
 import {useState} from 'react';
 import {useRouter} from 'next/router';
+import styles from '../styles/StateCard.module.css'
 
 export default function StateCard({state, user}) {
     const [selection, setSelection] = useState(state.selection || null)
@@ -30,18 +31,26 @@ export default function StateCard({state, user}) {
 
     return (
         <>
-            <form>
-                <h3 style={{textTransform: 'capitalize'}}>{state.state.replace("-", " ")} - {selection}</h3>
-                <div className="btn-group" role={"group"}>
-                    <label htmlFor={"rep-" + state.state} className={"btn btn-primary" + (selection === "rep" ? " active" : "")}>
-                        <input className="btn-check" type="radio" name={"vote-" + state.state}
+            <div className={styles.statecard + (state.selection ? (" " + styles["voted" + state.selection]) : "")}>
+                <h3 style={state.state === "washington-dc" ? {} : {textTransform: 'capitalize'}}>
+                    {state.state.replace("-", " ").replace("washington dc","Washington DC")}
+                </h3>
+                <div className={styles.btnGroup + " btn-group"} role={"group"}>
+                    <label htmlFor={"rep-" + state.state}
+                           className={"btn btn-primary"
+                               + (selection === "rep" ? " active" : "")
+                               + " " + styles.voteButton}>
+                        <input className={"btn-check"} type="radio" name={"vote-" + state.state}
                                value="rep"
                                id={"rep-" + state.state}
                                checked={selection === "rep"}
                                onChange={(e) => onSelect(e, state.state)}/>
                         Republican</label>
 
-                    <label htmlFor={"dem-" + state.state} className={"btn btn-primary" + (selection === "dem" ? " active" : "")}>
+                    <label htmlFor={"dem-" + state.state}
+                           className={"btn btn-primary"
+                               + (selection === "dem" ? " active" : "")
+                                + " " + styles.voteButton}>
                         <input className="btn-check" type="radio"
                                name={"vote-" + state.state}
                                value="dem"
@@ -51,7 +60,7 @@ export default function StateCard({state, user}) {
                         Democrat</label>
                 </div>
 
-            </form>
+            </div>
         </>
     );
 }

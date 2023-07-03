@@ -27,8 +27,8 @@
 .map {
     grid-area: map;
     margin-left: auto;
+    margin-right: auto;
     margin-top: 1vh;
-    border: 20px black;
 }
 
 .stateslist {

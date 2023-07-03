@@ -14,7 +14,7 @@ export default function Home({ states }: { states: any }) {
     if (error) return <div>{error.message}</div>;
 
     return (
-        <div>
+        <div style={{height: "100vh"}}>
             <Head>
                 <title>Home</title>
             </Head>
@@ -29,12 +29,12 @@ export default function Home({ states }: { states: any }) {
                         {states.length === 0 ? (
                             <h2>No added states</h2>
                         ) : (
-                            <ul>
+                            <>
                                 {
                                     states.map((state: any, i: Key | null | undefined) => (
                                     <StateCard state={state} key={state.state} user={user}/>
                                 ))}
-                            </ul>
+                            </>
                         )}
                     </div>
                 </div>
