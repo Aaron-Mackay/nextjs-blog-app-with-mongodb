@@ -65,13 +65,13 @@ async function getStatesAndVoteData(dev: boolean, userData: Session) {
     const statesRes = await fetch(`${dev ? DEV_URL : PROD_URL}/api/states`);
     // extract the data
     const statesResJson = await statesRes.json();
-    const statesArr = statesResJson['message']
+    const statesArr: Array<any> = statesResJson['message']
 
     // request votes from api
     const userVotesRes = await fetch(`${dev ? DEV_URL : PROD_URL}/api/vote?user=` + userData.user.email);
     // extract the data
     const userVotesResJson = await userVotesRes.json();
-    const userVotesArr = userVotesResJson['message']
+    const userVotesArr: Array<any> = userVotesResJson['message']
 
     // go through each userVote, add it to state
     userVotesArr.forEach(userVote => {
