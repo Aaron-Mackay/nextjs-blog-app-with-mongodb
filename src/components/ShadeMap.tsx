@@ -26,7 +26,7 @@ export default function ShadeMap({states}) {
 
         const rainbow = new Rainbow()
         rainbow.setSpectrum('blue', 'white', 'red')
-        const votePercentage = (demVotes / (repVotes + demVotes)) * 100
+        const votePercentage = (repVotes / (repVotes + demVotes)) * 100
 
         return "#" + rainbow.colorAt(votePercentage);
     }

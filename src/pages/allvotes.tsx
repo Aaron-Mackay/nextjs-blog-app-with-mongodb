@@ -2,12 +2,12 @@ import Head from 'next/head';
 
 import Nav from '../components/Nav';
 
-import ShadedStateCard from "@/components/ShadedStateCard";
 import styles from '../styles/Home.module.css';
 import {useUser} from "@auth0/nextjs-auth0/client";
 import {withPageAuthRequired} from "@auth0/nextjs-auth0";
 import {Key} from "react";
 import ShadeMap from "@/components/ShadeMap";
+import ShadedStateCard from "@/components/ShadedStateCard";
 
 
 export default function AllVotes({states}: { states: any }) {
