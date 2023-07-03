@@ -1,5 +1,6 @@
 import {useEffect} from "react";
 import {MapSvg} from "@/components/MapSvg";
+import Rainbow from "rainbowvis.js";
 
 export default function ShadeMap({states}) {
     useEffect(() => {
@@ -12,11 +13,23 @@ export default function ShadeMap({states}) {
     }, []);
 
     useEffect(() => {
-        states.filter(state => state.selection).forEach((state) => {
-            document?.querySelector('#' + state.state)?.setAttribute("class", "state " + state.selection + "-vote")
+        states.filter(state => state.demVotes && state.repVotes).forEach((state) => {
+            document?.querySelector('#' + state.state)
+                ?.setAttribute("style", "fill:" + getBackgroundColor(state.demVotes, state.repVotes) + "; stroke: #002868;")
         })
     }, [states])
 
+    const getBackgroundColor = (demVotes: number, repVotes: number) => {
+        if (demVotes + repVotes === 0) {
+            return ''
+        }
+
+        const rainbow = new Rainbow()
+        rainbow.setSpectrum('blue', 'white', 'red')
+        const votePercentage = (demVotes / (repVotes + demVotes)) * 100
+
+        return "#" + rainbow.colorAt(votePercentage);
+    }
 
     return (
         <MapSvg/>

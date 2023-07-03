@@ -1,11 +1,13 @@
 import Head from 'next/head';
 
 import Nav from '../components/Nav';
+
 import ShadedStateCard from "@/components/ShadedStateCard";
 import styles from '../styles/Home.module.css';
 import {useUser} from "@auth0/nextjs-auth0/client";
 import {withPageAuthRequired} from "@auth0/nextjs-auth0";
 import {Key} from "react";
+import ShadeMap from "@/components/ShadeMap";
 
 
 export default function AllVotes({states}: { states: any }) {
@@ -23,9 +25,9 @@ export default function AllVotes({states}: { states: any }) {
             <main>
                 <div className={styles.gridcontainer}>
                     {/*TODO make css editing thing*/}
-                    {/*<div className={styles.map}>*/}
-                    {/*    <ShadeMap states={states}/>*/}
-                    {/*</div>*/}
+                    <div className={styles.map}>
+                        <ShadeMap states={states}/>
+                    </div>
                     {/*TODO different version of statecards, to show vote balance*/}
                     <div className={styles.stateslist}>
                         {states.length === 0 ? (
