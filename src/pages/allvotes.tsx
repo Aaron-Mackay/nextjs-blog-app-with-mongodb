@@ -27,7 +27,7 @@ export default function AllVotes({states}: { states: any }) {
                     <div className={styles.map}>
                         <ShadeMap states={states}/>
                     </div>
-                    <div className={styles.stateslist}>
+                    <div className={styles.maskedOverflow + " " + styles.stateslist}>
                         {states.length === 0 ? (
                             <>
                                 <h2>States not loaded</h2>

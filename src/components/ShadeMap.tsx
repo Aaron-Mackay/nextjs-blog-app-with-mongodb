@@ -5,10 +5,12 @@ import getBackgroundColor from "@/getBackgroundColor";
 export default function ShadeMap({states}: { states: Array<any> }) {
     useEffect(() => {
         bindListenersToStates('mouseover', hoverFn);
-        bindListenersToStates('mouseleave', mouseLeaveFn)
+        bindListenersToStates('mouseleave', mouseLeaveFn);
+        bindListenersToStates('click', clickFn)
         return () => {
             removeListenersFromStates('mouseover', hoverFn)
             removeListenersFromStates('mouseleave', mouseLeaveFn)
+            removeListenersFromStates('click', clickFn)
         }
     }, []);
 
@@ -34,6 +36,20 @@ const hoverFn = (e: Event) => {
 const mouseLeaveFn = () => {
     document.querySelector<HTMLElement>('#info-box').style.display = 'none';
 }
+
+const clickFn = (e: Event) => {
+    const stateCard = document.querySelector<HTMLElement>('#' + (e.target as HTMLElement).id + "-card")
+    stateCard.parentElement.scroll({top: stateCard.offsetTop - 4*stateCard.offsetHeight, behavior: 'smooth'})
+
+    // Add glow effect class
+    stateCard.classList.add('glow-effect');
+
+    // Remove glow effect after 1 second
+    setTimeout(function() {
+        stateCard.classList.remove('glow-effect');
+    }, 10000);
+}
+
 
 const bindListenersToStates = (type: string, fn: EventListener) => {
     document.querySelectorAll("path, circle")

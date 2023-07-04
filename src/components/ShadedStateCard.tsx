@@ -5,7 +5,7 @@ export default function ShadedStateCard({state}: { state: any }) {
 
     return (
         <>
-            <div style={{backgroundColor: getBackgroundColor(state.demVotes, state.repVotes)}}
+            <div id={state.state + "-card"} style={{backgroundColor: getBackgroundColor(state.demVotes, state.repVotes)}}
                  className={styles.statecard}>
                 <h3 style={state.state === "washington-dc" ? {} : {textTransform: 'capitalize'}}>
                     {state.state.replace("-", " ").replace("washington dc", "Washington DC")}
