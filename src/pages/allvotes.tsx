@@ -24,11 +24,9 @@ export default function AllVotes({states}: { states: any }) {
             <Nav user={user}/>
             <main>
                 <div className={styles.gridcontainer}>
-                    {/*TODO make css editing thing*/}
                     <div className={styles.map}>
                         <ShadeMap states={states}/>
                     </div>
-                    {/*TODO different version of statecards, to show vote balance*/}
                     <div className={styles.stateslist}>
                         {states.length === 0 ? (
                             <>
@@ -39,7 +37,7 @@ export default function AllVotes({states}: { states: any }) {
                             <>
                                 {
                                     states.map((state: any, i: Key | null | undefined) => (
-                                        <ShadedStateCard state={state} key={state.state} user={user}/>
+                                        <ShadedStateCard state={state} key={state.state}/>
                                     ))}
                             </>
                         )}

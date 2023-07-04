@@ -1,18 +1,7 @@
-import Rainbow from "rainbowvis.js";
 import styles from "@/styles/StateCard.module.css";
+import getBackgroundColor from "@/getBackgroundColor";
 
-export default function ShadedStateCard({state, user}) {
-    const getBackgroundColor = (demVotes: number, repVotes: number) => {
-        if (demVotes + repVotes === 0) {
-            return ''
-        }
-
-        const rainbow = new Rainbow()
-        rainbow.setSpectrum('blue', 'white', 'red')
-        const votePercentage = (repVotes / (repVotes + demVotes)) * 100
-
-        return "#" + rainbow.colorAt(votePercentage);
-    }
+export default function ShadedStateCard({state}: { state: any }) {
 
     return (
         <>

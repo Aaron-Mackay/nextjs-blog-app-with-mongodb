@@ -1,8 +1,8 @@
 import {useEffect} from "react";
 import {MapSvg} from "@/components/MapSvg";
-import Rainbow from "rainbowvis.js";
+import getBackgroundColor from "@/getBackgroundColor";
 
-export default function ShadeMap({states}) {
+export default function ShadeMap({states}: { states: Array<any> }) {
     useEffect(() => {
         bindListenersToStates('mouseover', hoverFn);
         bindListenersToStates('mouseleave', mouseLeaveFn)
@@ -19,38 +19,28 @@ export default function ShadeMap({states}) {
         })
     }, [states])
 
-    const getBackgroundColor = (demVotes: number, repVotes: number) => {
-        if (demVotes + repVotes === 0) {
-            return ''
-        }
-
-        const rainbow = new Rainbow()
-        rainbow.setSpectrum('blue', 'white', 'red')
-        const votePercentage = (repVotes / (repVotes + demVotes)) * 100
-
-        return "#" + rainbow.colorAt(votePercentage);
-    }
-
     return (
         <MapSvg/>
     )
 }
 
-const hoverFn = (e) => {
-    document.querySelector('#info-box').style.display = 'block'
-    document.querySelector('#info-box').innerHTML = e.target.dataset.info
+const hoverFn = (e: Event) => {
+    if (e.target instanceof HTMLElement) {
+        document.querySelector<HTMLElement>('#info-box').style.display = 'block'
+        document.querySelector<HTMLElement>('#info-box').innerHTML = e.target.dataset.info
+    }
 }
 
-const mouseLeaveFn = (e) => {
-    document.querySelector('#info-box').style.display = 'none';
+const mouseLeaveFn = () => {
+    document.querySelector<HTMLElement>('#info-box').style.display = 'none';
 }
 
-const bindListenersToStates = (type, fn) => {
+const bindListenersToStates = (type: string, fn: EventListener) => {
     document.querySelectorAll("path, circle")
         .forEach((state) => state.addEventListener(type, fn));
 }
 
-const removeListenersFromStates = (type, fn) => {
+const removeListenersFromStates = (type: string, fn: EventListener) => {
     document.querySelectorAll("path, circle")
         .forEach((state) => state.removeEventListener(type, fn));
 }
