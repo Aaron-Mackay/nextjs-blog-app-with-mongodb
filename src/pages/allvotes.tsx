@@ -15,6 +15,22 @@ export default function AllVotes({states}: { states: any }) {
     if (isLoading) return <div>Loading...</div>;
     if (error) return <div>{error.message}</div>;
 
+    function backToTop() {
+        document.getElementById("scrollable-states-list").scroll({top: 0, behavior: "smooth"});
+        console.log("clicked")
+    }
+
+    function scrollFn() {
+        console.log("scrolled")
+        if (
+            document.getElementById("scrollable-states-list").scrollTop > 20
+        ) {
+            document.getElementById("btn-back-to-top").style.display = "block";
+        } else {
+            document.getElementById("btn-back-to-top").style.display = "none";
+        }
+    }
+
     return (
         <div style={{height: "100vh"}}>
             <Head>
@@ -27,7 +43,7 @@ export default function AllVotes({states}: { states: any }) {
                     <div className={styles.map}>
                         <ShadeMap states={states}/>
                     </div>
-                    <div className={styles.maskedOverflow + " " + styles.stateslist}>
+                    <div id="scrollable-states-list" onScroll={scrollFn} className={styles.maskedOverflow + " " + styles.stateslist}>
                         {states.length === 0 ? (
                             <>
                                 <h2>States not loaded</h2>
@@ -42,6 +58,14 @@ export default function AllVotes({states}: { states: any }) {
                             </>
                         )}
                     </div>
+                    <button
+                        type="button"
+                        className="btn btn-danger btn-floating btn-lg"
+                        id="btn-back-to-top"
+                        onClick={backToTop}
+                    >
+                        &#x2191;
+                    </button>
                 </div>
             </main>
         </div>
