@@ -5,9 +5,11 @@ export default function Map({states}) {
     useEffect(() => {
         bindListenersToStates('mouseover', hoverFn);
         bindListenersToStates('mouseleave', mouseLeaveFn)
+        bindListenersToStates('click', clickFn)
         return () => {
             removeListenersFromStates('mouseover', hoverFn)
             removeListenersFromStates('mouseleave', mouseLeaveFn)
+            removeListenersFromStates('click', clickFn)
         }
     }, []);
 
@@ -30,6 +32,19 @@ const hoverFn = (e) => {
 
 const mouseLeaveFn = (e) => {
     document.querySelector('#info-box').style.display = 'none';
+}
+
+const clickFn = (e) => {
+    const target = document.querySelector('#' + e.target.id + "-card")
+    target.parentElement.scroll({top: target.offsetTop - 2*target.offsetHeight, behavior: 'smooth'})
+
+    // Add glow effect class
+    target.classList.add('glow-effect');
+
+    // Remove glow effect after 1 second
+    setTimeout(function() {
+        target.classList.remove('glow-effect');
+    }, 10000);
 }
 
 const bindListenersToStates = (type, fn) => {

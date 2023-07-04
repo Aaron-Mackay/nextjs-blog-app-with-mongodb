@@ -31,7 +31,7 @@ export default function StateCard({state, user}) {
 
     return (
         <>
-            <div className={styles.statecard + (state.selection ? (" " + styles["voted" + state.selection]) : "")}>
+            <div id={state.state + "-card"} className={styles.statecard + (state.selection ? (" " + styles["voted" + state.selection]) : "")}>
                 <h3 style={state.state === "washington-dc" ? {} : {textTransform: 'capitalize'}}>
                     {state.state.replace("-", " ").replace("washington dc","Washington DC")}
                 </h3>

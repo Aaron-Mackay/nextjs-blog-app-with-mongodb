@@ -13,7 +13,7 @@
     grid-area: states-list;
     overflow-y: scroll;
     width: 100%;
-    margin-top: 10vh;
+    margin-top: 7vh;
     height: 90vh;
 }
 
@@ -24,8 +24,9 @@
     /* mask fade distance, for use in mask calculations */
     --mask-height: 32px;
 
-    /* Need to make sure container has bottom space,
+    /* Need to make sure container has top and bottom space,
   otherwise content at the bottom is always faded out */
+    padding-top: var(--mask-height);
     padding-bottom: var(--mask-height);
 
     /* Keep some space between content and scrollbar */
