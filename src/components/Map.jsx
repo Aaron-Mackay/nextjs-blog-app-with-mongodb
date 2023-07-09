@@ -14,6 +14,7 @@ export default function Map({states}) {
     }, []);
 
     useEffect(() => {
+        console.log("painting states")
         states.filter(state => state.selection).forEach((state) => {
             document?.querySelector('#' + state.state)?.setAttribute("class", "state " + state.selection + "-vote")
         })
