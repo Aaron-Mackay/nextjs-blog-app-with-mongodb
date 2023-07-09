@@ -1,6 +1,7 @@
 import styles from '../styles/Nav.module.css';
 import Link from "next/link";
 import Image from "next/image";
+import {prefill} from "@/lib/apiUtils";
 
 export default function Nav({user}) {
     return (
@@ -27,6 +28,14 @@ export default function Nav({user}) {
                             </Link>
                         </li>
                     </ul>
+                    <button
+                        type="button"
+                        className="btn btn-danger btn-floating btn-sm"
+                        id="prefill"
+                        onClick={() => prefill(user)}
+                    >
+                        Prefill
+                    </button>
 
                 </div>
                 <form className="d-flex">

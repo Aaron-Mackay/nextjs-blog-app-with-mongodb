@@ -13,10 +13,10 @@ export default function Home({states}: { states: any }) {
     if (isLoading) return <div>Loading...</div>;
     if (error) return <div>{error.message}</div>;
 
-    function backToTop() {
+    const backToTop = () => {
         document.getElementById("scrollable-states-list").scroll({top: 0, behavior: "smooth"});
         console.log("clicked")
-    }
+    };
 
     function scrollFn() {
         console.log("scrolled")
@@ -114,6 +114,10 @@ async function getStatesAndActiveUserVoteData(dev: boolean, userData: Session) {
     // go through each userVote, add it to state
     userVotesArr.forEach(userVote => {
         const matchedState = statesArr.find(state => state.state === userVote.state)
+        if (!matchedState) {
+            console.log("Error: Could not match a state for userVote, check for empty state values")
+            return
+        }
         matchedState.selection = userVote.vote;
     })
     return statesArr;

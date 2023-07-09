@@ -1,6 +1,7 @@
 import {useState} from 'react';
 import {useRouter} from 'next/router';
 import styles from '../styles/StateCard.module.css'
+import {sendVote} from "@/lib/apiUtils";
 
 export default function StateCard({state, user}) {
     const [selection, setSelection] = useState(state.selection || null)
@@ -10,33 +11,14 @@ export default function StateCard({state, user}) {
         try {
             if (selection !== e.target.value) {
                 // Update state
-                await fetch('/api/vote', {
-                    method: 'PATCH',
-                    body: JSON.stringify({
-                        state,
-                        vote: e.target.value,
-                        category: "pres",
-                        userEmail: user.email,
-                        lastVoted: new Date()
-                    }),
-                });
+                await sendVote(state, e.target.value, user);
                 setSelection(e.target.value)
 
             } else {
                 // Update state
-                await fetch('/api/vote', {
-                    method: 'PATCH',
-                    body: JSON.stringify({
-                        state,
-                        vote: "unselected",
-                        category: "pres",
-                        userEmail: user.email,
-                        lastVoted: new Date()
-                    }),
-                });
+                await sendVote(state, "unselected", user)
                 setSelection(null)
             }
-
 
             // reload the page
             console.log("Reloading")
